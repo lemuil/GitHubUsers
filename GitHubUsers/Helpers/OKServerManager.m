@@ -47,7 +47,7 @@
                                 stringSince, @"since",
                                 nil];
     
-    [self.manager GET:@"/users" parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+    [self.manager GET:@"/users?per_page=100" parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         
         NSArray *dictionariesArray = responseObject;

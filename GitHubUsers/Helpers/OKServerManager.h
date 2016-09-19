@@ -13,5 +13,6 @@
 + (OKServerManager *)sharedManager;
 
 - (void)getAllUsersSince:(NSInteger)since success:(void(^)(NSArray *users))success failure:(void(^)(NSError *error, NSInteger statusCode))failure;
+- (void)getSearchResultForUsername:(NSString *)name success:(void(^)(NSArray *users))success failure:(void(^)(NSError *error, NSInteger statusCode))failure;
 
 @end

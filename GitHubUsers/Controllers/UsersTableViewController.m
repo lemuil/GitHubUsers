@@ -28,6 +28,7 @@
 
     self.gitHubUsers = [NSMutableArray array];
     [self getUsersFromServer];
+    self.loadingData = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,17 +108,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //[self.lastUsers addObject:[self.gitUsers objectAtIndex:indexPath.row]];
-    [self performSegueWithIdentifier:@"ShowAvatar" sender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.loadingData) {
-        self.loadingData = YES;
-        [self getUsersFromServer];
+    if ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height / 1.3f) {
+        if (!self.loadingData) {
+            self.loadingData = YES;
+            [self getUsersFromServer];
+        }
     }
 }
 
@@ -126,6 +127,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowAvatar"]) {
         DetailViewController *detailVC = [segue destinationViewController];
+        
+        
         
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         GitHubUser *user = [self.gitHubUsers objectAtIndex:indexPath.row];
