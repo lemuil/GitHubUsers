@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString *nameUser;
 @property (strong, nonatomic) NSString *linkUser;
 @property (strong, nonatomic) NSURL *avatarURL;
+@property (assign, nonatomic) NSInteger userId;
 
 - (GitHubUser *)initWithDictionary:(NSDictionary *)dictionary;
 

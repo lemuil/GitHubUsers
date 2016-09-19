@@ -15,6 +15,7 @@
     if (self) {
         self.nameUser = [dictionary objectForKey:@"login"];
         self.linkUser = [dictionary objectForKey:@"html_url"];
+        self.userId   = [[dictionary objectForKey:@"id"] integerValue];
         
         NSString *avatarString = [dictionary objectForKey:@"avatar_url"];
         self.avatarURL = [NSURL URLWithString:avatarString];

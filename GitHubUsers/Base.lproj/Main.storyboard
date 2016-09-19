@@ -22,7 +22,7 @@
                                     <frame key="frameInset" width="375" height="119"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcH-XE-zai">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcH-XE-zai">
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="FVb-pz-gBW"/>
                                                 <constraint firstAttribute="height" constant="100" id="aVV-O2-qIX"/>
@@ -115,7 +115,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dgm-Ep-lb3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="FFN-9G-Vmo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="FFN-9G-Vmo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.043137254899999998" green="0.32549019610000002" blue="0.58039215690000001" alpha="1" colorSpace="deviceRGB"/>

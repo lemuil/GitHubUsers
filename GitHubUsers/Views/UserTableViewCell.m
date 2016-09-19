@@ -10,15 +10,12 @@
 
 @implementation UserTableViewCell
 
-
-
 #pragma mark - Action
 
 - (IBAction)profileLinkDidTouch:(UIButton *)sender {
-//    if (self.user.linkUser) {
-//        [UIApplication sharedApplication] openURL:<#(nonnull NSURL *)#> options:<#(nonnull NSDictionary<NSString *,id> *)#> completionHandler:<#^(BOOL success)completion#>;
-//    }
+    if (self.user) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.user.linkUser]];
+    }
 }
-
 
 @end

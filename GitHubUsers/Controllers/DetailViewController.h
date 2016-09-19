@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class GitHubUser;
 
 @interface DetailViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (strong, nonatomic) NSString *avatarTitle;
+@property (strong, nonatomic) GitHubUser *user;
 
 @end

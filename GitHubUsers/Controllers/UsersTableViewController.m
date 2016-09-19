@@ -7,12 +7,17 @@
 //
 
 #import "UsersTableViewController.h"
+#import "DetailViewController.h"
 #import "UserTableViewCell.h"
 #import "GitHubUser.h"
+#import "OKServerManager.h"
+#import "UIKit+AFNetworking.h"
 
 @interface UsersTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *gitHubUsers;
+@property (strong, nonatomic) NSMutableArray *lastUsers;
+@property (assign, nonatomic) BOOL loadingData;
 
 @end
 
@@ -34,26 +39,26 @@
 
 - (void)getUsersFromServer {
     
-//    GitUser *lastUser = [self.gitUsers lastObject];
-//    
-//    [[DVServerManager sharedManager] getAllUsersSince:lastUser.userId success:^(NSArray *users) {
-//        
-//        [self.gitUsers addObjectsFromArray:users];
-//        
-//        NSMutableArray *newPaths = [NSMutableArray array];
-//        for (int i = (int)[self.gitUsers count] - (int)[users count]; i < [self.gitUsers count]; i++) {
-//            [newPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
-//        }
-//        
-//        [self.tableView beginUpdates];
-//        [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationFade];
-//        [self.tableView endUpdates];
-//        
-//        self.loadingData = NO;
-//        
-//    } failure:^(NSError *error, NSInteger statusCode) {
-//        NSLog(@"%ld: %@",  (long)statusCode, [error localizedDescription]);
-//    }];
+    GitHubUser *lastUser = [self.gitHubUsers lastObject];
+    
+    [[OKServerManager sharedManager] getAllUsersSince:lastUser.userId success:^(NSArray *users) {
+        
+        [self.gitHubUsers addObjectsFromArray:users];
+        
+        NSMutableArray *newPaths = [NSMutableArray array];
+        for (int i = (int)[self.gitHubUsers count] - (int)[users count]; i < [self.gitHubUsers count]; i++) {
+            [newPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+        }
+        
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+        self.loadingData = NO;
+        
+    } failure:^(NSError *error, NSInteger statusCode) {
+        NSLog(@"%ld: %@",  (long)statusCode, [error localizedDescription]);
+    }];
     
 }
 
@@ -64,27 +69,80 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return 100;
+    return [self.gitHubUsers count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
+    UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    if (!cell) {
+        cell = [[UserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserCell"];
+    }
+    
+    GitHubUser *gitHubUser = [self.gitHubUsers objectAtIndex:indexPath.row];
+
+    cell.nameLabel.text = gitHubUser.nameUser;
+    [cell.profileButton setTitle:gitHubUser.linkUser forState:UIControlStateNormal];
+    cell.user = gitHubUser;
+    
+    __weak UserTableViewCell *weakCell = cell;
+    NSURLRequest *request = [NSURLRequest requestWithURL:gitHubUser.avatarURL];
+    
+    cell.imageView.image = nil;
+    
+    [cell.imageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [weakCell.avatarButton setImage:image forState:UIControlStateNormal];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        NSLog(@"failed to load user image");
+    }];
+    
+    //TODO: Refactor code to cell's function
+    //[cell configureCell:gitHubUser];
     
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[self.lastUsers addObject:[self.gitUsers objectAtIndex:indexPath.row]];
+    [self performSegueWithIdentifier:@"ShowAvatar" sender:[tableView cellForRowAtIndexPath:indexPath]];
+}
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.loadingData) {
+        self.loadingData = YES;
+        [self getUsersFromServer];
+    }
+}
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowAvatar"]) {
+        DetailViewController *detailVC = [segue destinationViewController];
         
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        GitHubUser *user = [self.gitHubUsers objectAtIndex:indexPath.row];
+        detailVC.user = user;
     }
 }
 
-
 @end
+
+
+
+
+
+
+
+
+
+
+
+
