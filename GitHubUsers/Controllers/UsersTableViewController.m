@@ -81,6 +81,8 @@
         cell = [[UserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserCell"];
     }
     
+    cell.avatarButton.tag = indexPath.row;
+    
     GitHubUser *gitHubUser = [self.gitHubUsers objectAtIndex:indexPath.row];
 
     cell.nameLabel.text = gitHubUser.nameUser;
@@ -127,11 +129,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowAvatar"]) {
         DetailViewController *detailVC = [segue destinationViewController];
-        
-        
-        
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        GitHubUser *user = [self.gitHubUsers objectAtIndex:indexPath.row];
+
+        GitHubUser *user = self.gitHubUsers[[sender tag]];
         detailVC.user = user;
     }
 }
