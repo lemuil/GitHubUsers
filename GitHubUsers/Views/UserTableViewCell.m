@@ -10,15 +10,15 @@
 
 @implementation UserTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+
+
+#pragma mark - Action
+
+- (IBAction)profileLinkDidTouch:(UIButton *)sender {
+//    if (self.user.linkUser) {
+//        [UIApplication sharedApplication] openURL:<#(nonnull NSURL *)#> options:<#(nonnull NSDictionary<NSString *,id> *)#> completionHandler:<#^(BOOL success)completion#>;
+//    }
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

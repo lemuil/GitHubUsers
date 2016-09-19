@@ -10,4 +10,7 @@
 
 @interface DetailViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (strong, nonatomic) NSString *avatarTitle;
+
 @end

@@ -10,18 +10,63 @@
         <scene sceneID="p4u-G7-Ugh">
             <objects>
                 <tableViewController id="yth-JJ-QBw" customClass="UsersTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="KkI-83-Spd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="KkI-83-Spd">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="120" id="w5d-JW-zsN" customClass="UserTableViewCell">
-                                <rect key="frame" x="0.0" y="92" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w5d-JW-zsN" id="MK0-ft-EZa">
                                     <frame key="frameInset" width="375" height="119"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcH-XE-zai">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="FVb-pz-gBW"/>
+                                                <constraint firstAttribute="height" constant="100" id="aVV-O2-qIX"/>
+                                            </constraints>
+                                            <state key="normal" title="Avatar">
+                                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="Jdc-Gr-uil" kind="show" identifier="ShowAvatar" id="k2f-9e-TVH"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHA-Om-RmB">
+                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wYa-zS-HUc">
+                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                            <state key="normal" title="Profile Link">
+                                                <color key="titleColor" red="0.23529411759999999" green="0.2666666667" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="profileLinkDidTouch:" destination="w5d-JW-zsN" eventType="touchUpInside" id="oYJ-C9-i41"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="wYa-zS-HUc" secondAttribute="trailing" constant="8" id="1ro-Od-ctP"/>
+                                        <constraint firstItem="wYa-zS-HUc" firstAttribute="leading" secondItem="VcH-XE-zai" secondAttribute="trailing" constant="8" id="C7J-76-0B1"/>
+                                        <constraint firstItem="wYa-zS-HUc" firstAttribute="top" secondItem="MK0-ft-EZa" secondAttribute="top" constant="31" id="DlF-bv-SNu"/>
+                                        <constraint firstItem="VcH-XE-zai" firstAttribute="top" secondItem="MK0-ft-EZa" secondAttribute="top" constant="10" id="Koh-VZ-En0"/>
+                                        <constraint firstItem="WHA-Om-RmB" firstAttribute="top" secondItem="MK0-ft-EZa" secondAttribute="top" constant="10" id="ORR-5n-ddv"/>
+                                        <constraint firstAttribute="trailing" secondItem="WHA-Om-RmB" secondAttribute="trailing" constant="8" id="SEZ-hs-36f"/>
+                                        <constraint firstItem="VcH-XE-zai" firstAttribute="leading" secondItem="MK0-ft-EZa" secondAttribute="leading" constant="10" id="Uai-eS-oqj"/>
+                                        <constraint firstAttribute="bottom" secondItem="wYa-zS-HUc" secondAttribute="bottom" constant="55" id="ebz-zf-F8k"/>
+                                        <constraint firstItem="WHA-Om-RmB" firstAttribute="leading" secondItem="VcH-XE-zai" secondAttribute="trailing" constant="8" id="iSY-Xn-XfK"/>
+                                        <constraint firstAttribute="bottom" secondItem="VcH-XE-zai" secondAttribute="bottom" constant="10" id="xMh-yp-qDN"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarButton" destination="VcH-XE-zai" id="K1q-Ho-kxE"/>
+                                    <outlet property="nameLabel" destination="WHA-Om-RmB" id="LRd-d3-fjD"/>
+                                    <outlet property="profileButton" destination="wYa-zS-HUc" id="wmY-2p-7ea"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -33,7 +78,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z4u-nt-Tnf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2010.4000000000001" y="123.68815592203899"/>
+            <point key="canvasLocation" x="1650.4000000000001" y="123.68815592203899"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="mm4-Ez-NcF">
@@ -44,21 +89,33 @@
                         <viewControllerLayoutGuide type="bottom" id="ofj-gc-Cii"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q5e-ds-Cjf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FRH-fo-AJY"/>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="FRH-fo-AJY" secondAttribute="trailing" id="1rc-Dt-ZdH"/>
+                            <constraint firstItem="FRH-fo-AJY" firstAttribute="top" secondItem="XV3-5V-T9G" secondAttribute="bottom" constant="114" id="8Ba-y9-HX5"/>
+                            <constraint firstItem="ofj-gc-Cii" firstAttribute="top" secondItem="FRH-fo-AJY" secondAttribute="bottom" constant="114" id="CPX-aW-lND"/>
+                            <constraint firstItem="FRH-fo-AJY" firstAttribute="leading" secondItem="Q5e-ds-Cjf" secondAttribute="leading" id="Maf-xk-N8J"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="avatarImageView" destination="FRH-fo-AJY" id="Vdw-IB-IFo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oWm-PW-Wc9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2924" y="124"/>
+            <point key="canvasLocation" x="2455" y="124"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pAs-bh-JCq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dgm-Ep-lb3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FFN-9G-Vmo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="FFN-9G-Vmo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.043137254899999998" green="0.32549019610000002" blue="0.58039215690000001" alpha="1" colorSpace="deviceRGB"/>
@@ -74,7 +131,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PaC-2p-GSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1069.5999999999999" y="123.68815592203899"/>
+            <point key="canvasLocation" x="831" y="124"/>
         </scene>
     </scenes>
 </document>
