@@ -41,7 +41,7 @@
 
 - (void)getAllUsersSince:(NSInteger)since success:(void(^)(NSArray *users))success failure:(void(^)(NSError *error, NSInteger statusCode))failure {
     
-    NSString *stringSince = [NSString stringWithFormat:@"%d", since];
+    NSString *stringSince = [NSString stringWithFormat:@"%ld", (long)since];
     
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
                                 stringSince, @"since",
@@ -73,7 +73,42 @@
                                 name, @"q",
                                 nil];
     
-
+    [self.manager GET:@"/search/users" parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        
+        NSArray *dictionariesArray = [responseObject objectForKey:@"items"];
+        NSMutableArray *usersArray = [NSMutableArray array];
+        
+        for (NSDictionary *dictionary in dictionariesArray) {
+            GitHubUser *gitHubUser = [[GitHubUser alloc] initWithDictionary:dictionary];
+            [usersArray addObject:gitHubUser];
+        }
+        
+        if (success) {
+            success(usersArray);
+        }
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

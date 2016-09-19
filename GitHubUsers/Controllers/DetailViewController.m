@@ -20,9 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //TODO: Fix left item button - white color
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
-    
+    self.navigationItem.title = self.user.nameUser;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self loadAvatarImageView];
 }
 
